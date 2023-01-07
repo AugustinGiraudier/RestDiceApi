@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+	<StartWorkingDirectory>$(MSBuildProjectDirectory)</StartWorkingDirectory>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BuisnessLib\BuisnessLib.csproj" />
+    <ProjectReference Include="..\EntitiesLib\EntitiesLib.csproj" />
+  </ItemGroup>
+
+</Project>
