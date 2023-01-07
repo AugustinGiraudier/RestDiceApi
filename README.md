@@ -3,6 +3,9 @@
 Grille notation : 
 https://github.com/nicolas63/coursservicesmobiles/blob/master/Notation.md
 
+Doc API Microsoft : 
+https://learn.microsoft.com/fr-fr/aspnet/core/web-api/?view=aspnetcore-6.0
+
 ## Présentation
 
 ### Objectif
