@@ -25,6 +25,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuisnessLib", "BuisnessLib\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EntitiesToModel", "EntitiesToModel\EntitiesToModel.csproj", "{B3527B06-BE53-4F4E-B6B1-34B586C2894A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiREST", "ApiREST\ApiREST.csproj", "{F04EC1C2-0828-4276-8FF5-564319E06533}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +73,10 @@ Global
 		{B3527B06-BE53-4F4E-B6B1-34B586C2894A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B3527B06-BE53-4F4E-B6B1-34B586C2894A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B3527B06-BE53-4F4E-B6B1-34B586C2894A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F04EC1C2-0828-4276-8FF5-564319E06533}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F04EC1C2-0828-4276-8FF5-564319E06533}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F04EC1C2-0828-4276-8FF5-564319E06533}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F04EC1C2-0828-4276-8FF5-564319E06533}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
