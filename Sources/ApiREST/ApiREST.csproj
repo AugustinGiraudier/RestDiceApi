@@ -18,8 +18,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BuisnessLib\BuisnessLib.csproj" />
     <ProjectReference Include="..\EntitiesLib\EntitiesLib.csproj" />
-    <ProjectReference Include="..\ModelAppLib\ModelAppLib.csproj" />
   </ItemGroup>
 
 </Project>

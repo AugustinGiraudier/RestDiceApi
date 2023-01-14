@@ -22,6 +22,13 @@ namespace ModelAppLib
         public Task<IEnumerable<Dice>> GetAllDices();
 
         /// <summary>
+        /// Permet de récupérer un dé avec son id
+        /// </summary>
+        /// <param name="id">id du dé</param>
+        /// <returns></returns>
+        public Task<Dice> GetDiceWithId(int id);
+
+        /// <summary>
         /// Permet de récupérer toutes les faces
         /// </summary>
         /// <returns>IEnumerablee de toutes les faces</returns>
