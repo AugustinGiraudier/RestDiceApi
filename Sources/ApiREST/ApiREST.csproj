@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BuisnessLib\BuisnessLib.csproj" />
+    <ProjectReference Include="..\DTO\DTO.csproj" />
     <ProjectReference Include="..\EntitiesLib\EntitiesLib.csproj" />
   </ItemGroup>
 
