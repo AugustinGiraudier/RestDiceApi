@@ -126,6 +126,11 @@ namespace StubLib
 
         }
 
+        public Task<Dice> GetDiceWithId(int id)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public Task<int> GetNbDice()
         {
             return Task.FromResult(GetAllDices().Result.Count());

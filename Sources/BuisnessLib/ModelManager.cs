@@ -142,6 +142,13 @@ namespace ModelAppLib
         public async Task<IEnumerable<Dice>> GetAllDices() { return await dataManager.GetAllDices(); }
 
         /// <summary>
+        /// Retourne le dé d'id passé en parametre
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<Dice>GetDiceWithId(int id) { return await dataManager.GetDiceWithId(id); }
+
+        /// <summary>
         /// Retourne la IEnumerablee de toutes les parties
         /// </summary>
         /// <returns>IEnumerablee des parties</returns>

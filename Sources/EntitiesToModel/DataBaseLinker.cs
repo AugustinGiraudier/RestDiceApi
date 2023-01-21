@@ -99,6 +99,17 @@ namespace EntitiesLib
                                 .ToModel()
                                 );
         }
+        public Task<Dice> GetDiceWithId(int id)
+        {
+            try
+            {
+                return Task.FromResult(context.Dices.First(d => d.Id == id).ToModel());
+            }
+            catch (InvalidOperationException)
+            {
+                throw new ArgumentException("Le dé n'existe pas dans la base...");
+            }
+        }
         public Task<IEnumerable<Game>> GetAllGames()
         {
             return Task.FromResult( 
