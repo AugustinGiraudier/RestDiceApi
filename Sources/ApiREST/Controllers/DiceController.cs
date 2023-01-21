@@ -19,7 +19,7 @@ namespace ApiREST.Controllers
 
         // GET: api/dices
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Dice>>> Get()
+        public async Task<ActionResult<IEnumerable<DiceDTO>>> Get()
         {
             try
             {
@@ -28,7 +28,7 @@ namespace ApiREST.Controllers
                 {
                     return NotFound();
                 }
-                return Ok(result);
+                return Ok(result.ToDTO());
             }
             catch (Exception)
             {
@@ -39,7 +39,7 @@ namespace ApiREST.Controllers
 
         // GET api/dices/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Dice>> Get(int id)
+        public async Task<ActionResult<DiceDTO>> Get(int id)
         {
             try
             {
@@ -48,7 +48,7 @@ namespace ApiREST.Controllers
                 {
                     return NotFound();
                 }
-                return Ok(result);
+                return Ok(result.ToDTO());
             } catch(Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,

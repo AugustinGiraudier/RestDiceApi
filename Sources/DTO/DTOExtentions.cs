@@ -62,5 +62,15 @@ namespace DTO
             return dto;
         }
 
+        public static IEnumerable<DiceDTO> ToDTO(this IEnumerable<Dice> model)
+        {
+            var dto = new List<DiceDTO>();
+            foreach(Dice dice in model)
+            {
+                dto.Add(dice.ToDTO());
+            }
+            return dto;
+        }
+
     }
 }
