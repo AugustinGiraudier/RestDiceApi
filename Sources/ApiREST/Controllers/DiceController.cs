@@ -10,9 +10,9 @@ namespace ApiREST.Controllers
     public class DiceController : Controller
     {
 
-        private readonly ModelManager _service;
+        private readonly IDataManager _service;
 
-        public DiceController(ModelManager service)
+        public DiceController(IDataManager service)
         {
             _service = service;
         }
