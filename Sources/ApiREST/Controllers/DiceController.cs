@@ -1,6 +1,7 @@
 ﻿using DTO;
 using Microsoft.AspNetCore.Mvc;
 using ModelAppLib;
+using NLog.Extensions.Logging;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -12,6 +13,7 @@ namespace ApiREST.Controllers
     {
 
         private readonly IDataManager _service;
+        private static ILogger<DiceController> logger = LoggerFactory.Create(builder => builder.AddNLog()).CreateLogger<DiceController>();
 
         public DiceController(IDataManager service)
         {
@@ -22,17 +24,21 @@ namespace ApiREST.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<DiceDTO>>> Get()
         {
+            logger.LogTrace("Method GET from DiceControler to get list of DiceDTO");
             try
             {
                 var result = await _service.GetAllDices();
                 if (result == null)
                 {
+                    logger.LogTrace("Method GET from DiceControler, not found list of DiceDTO");
                     return NotFound();
                 }
+                logger.LogTrace("Method GET from DiceControler return something");
                 return Ok(result.ToDTO());
             }
             catch (Exception)
             {
+                logger.LogTrace("Method GET from DiceControler, return Exception");
                 return StatusCode(StatusCodes.Status500InternalServerError,
                     "Error retrieving data from the database");
             }
@@ -42,16 +48,20 @@ namespace ApiREST.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<DiceDTO>> Get(int id)
         {
+            logger.LogTrace("GET Dice with Id");
             try
             {
                 var result = await _service.GetDiceWithId(id);
                 if( result == null)
                 {
+                    logger.LogTrace("Method GET by ID from DiceControler, not found the Dice with the Id");
                     return NotFound();
                 }
+                logger.LogTrace("Method GET by ID from DiceControler, return something");
                 return Ok(result.ToDTO());
             } catch(Exception)
             {
+                logger.LogTrace("Method GET by ID from DiceControler, return Exception");
                 return StatusCode(StatusCodes.Status500InternalServerError,
                     "Error retrieving data from the database");
             }
