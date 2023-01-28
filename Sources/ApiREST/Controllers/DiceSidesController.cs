@@ -45,6 +45,30 @@ namespace ApiREST.Controllers
             }
         }
 
+        // GET api/v1/dicesides/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<DiceSideDTO>> Get(int id)
+        {
+            logger.LogTrace("GET DiceSide with Id");
+            try
+            {
+                var result = await _service.GetDiceSideWithId(id);
+                if (result == null)
+                {
+                    logger.LogTrace("Method GET by ID from DiceSidesController, not found the DiceSide with the Id");
+                    return NotFound();
+                }
+                logger.LogTrace("Method GET by ID from DiceSidesController, return something");
+                return Ok(result.ToDTO());
+            }
+            catch (Exception)
+            {
+                logger.LogTrace("Method GET by ID from DiceSidesController, return Exception");
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error retrieving data from the database");
+            }
+        }
+
 
 
     }

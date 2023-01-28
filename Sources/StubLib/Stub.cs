@@ -113,22 +113,32 @@ namespace StubLib
         public Task<IEnumerable<DiceSide>> GetAllSides()
         {
             List<DiceSide> ret = new();
+            DiceSide diceSide;
 
-            ret.Add(new DiceSide("1.png"));
-            ret.Add(new DiceSide("2.png"));
-            ret.Add(new DiceSide("3.png"));
-            ret.Add(new DiceSide("4.png"));
-            ret.Add(new DiceSide("5.png"));
-            ret.Add(new DiceSide("6.png"));
-            ret.Add(new DiceSide("star.png"));
+            for(int i = 1; i < 7; i++)
+            {
+                diceSide = new DiceSide($"{i}.png"); diceSide.Id = i;
+                ret.Add(diceSide);
+            }
+            diceSide = new DiceSide("Star.png"); diceSide.Id = 7;
+            ret.Add(diceSide);
 
             return Task.FromResult(ret.AsEnumerable());
 
         }
 
+        public Task<DiceSide> GetDiceSideWithId(int id)
+        {
+            var ds = new DiceSide($"{id}.png");
+            ds.Id = id;
+            return Task.FromResult(ds);
+        }
+
         public Task<Dice> GetDiceWithId(int id)
         {
-            throw new System.NotImplementedException();
+            var dice = GetAllDices().Result.ToList()[0];
+            dice.Id = id;
+            return Task.FromResult(dice);
         }
 
         public Task<int> GetNbDice()
