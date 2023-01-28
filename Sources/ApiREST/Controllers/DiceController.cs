@@ -78,10 +78,12 @@ namespace ApiREST.Controllers
                 var createDice = await _service.AddDice(dice.ToModel());
                 if( !createDice)
                 {
+                    logger.LogError("Methode Post, impossible to add the Dice");
                     return BadRequest();
                 }
 
                 // CreatedAtAction va retourne l'objet créé, et sur lequelle on va ensuite le convertire avec le DTO pour ensuite le return
+                logger.LogTrace("Methode Post, the dice was added correctly");
                 return CreatedAtAction(nameof(Get),
                     new { id = dice.ID }, dice);
             }
@@ -113,20 +115,25 @@ namespace ApiREST.Controllers
             {
                 if (id == null)
                 {
+                    logger.LogError("Methode Delete, the id was null");
                     return BadRequest();
                 }
                 var diceToDelete = await _service.GetDiceWithId(id);
 
                 if (diceToDelete == null)
                 {
+                    logger.LogError("Methode Delete, impossible to find the Dice to delete");
                     return NotFound($"Dice with the id = {id} was not found");
                 }
 
                 var resultDelete = await _service.DeleteDice(diceToDelete);
+                logger.LogTrace("Methode Delete, the Dice was Deleted");
                 if (resultDelete.Equals(false) )
                 {
+                    logger.LogError("Methode Delete, the deleting was not successfull");
                     return NotFound("The delete was not correct ");
                 }
+                logger.LogTrace("Methode Delete, returned the DTO of the deleted Dice");
                 return diceToDelete.ToDTO();
             }
             catch (Exception e)
