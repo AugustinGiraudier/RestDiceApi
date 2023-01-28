@@ -71,6 +71,15 @@ namespace DTO
             }
             return dto;
         }
+        public static IEnumerable<DiceSideDTO> ToDTO(this IEnumerable<DiceSide> model)
+        {
+            var dto = new List<DiceSideDTO>();
+            foreach (DiceSide diceside in model)
+            {
+                dto.Add(diceside.ToDTO());
+            }
+            return dto;
+        }
 
     }
 }

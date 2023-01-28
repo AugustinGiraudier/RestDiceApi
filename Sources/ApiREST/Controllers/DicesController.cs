@@ -9,13 +9,14 @@ namespace ApiREST.Controllers
 {
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
-    public class DiceController : Controller
+    public class DicesController : Controller
     {
 
         private readonly IDataManager _service;
-        private static ILogger<DiceController> logger = LoggerFactory.Create(builder => builder.AddNLog()).CreateLogger<DiceController>();
 
-        public DiceController(IDataManager service)
+        private static ILogger<DicesController> logger = LoggerFactory.Create(builder => builder.AddNLog()).CreateLogger<DicesController>();
+
+        public DicesController(IDataManager service)
         {
             _service = service;
         }
@@ -71,7 +72,7 @@ namespace ApiREST.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<DiceDTO>> Create(DiceDTO dice) // Prendre pas un DIce mais un DTO
+        public async Task<ActionResult<DiceDTO>> Create(DiceDTO dice)
         {
             try
             {
@@ -92,13 +93,6 @@ namespace ApiREST.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError,
                     "Error retrieving data from the database");
             }
-        }
-        
-
-        // POST api/values
-        [HttpPost]
-        public void Post([FromBody]string value)
-        {
         }
 
         // PUT api/values/5
