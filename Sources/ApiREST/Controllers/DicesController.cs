@@ -76,6 +76,8 @@ namespace ApiREST.Controllers
         {
             try
             {
+                if (dice == null)
+                    return BadRequest();
                 var createDice = await _service.AddDice(dice.ToModel());
                 if( !createDice)
                 {

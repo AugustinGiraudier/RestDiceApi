@@ -98,6 +98,13 @@ namespace ModelAppLib
         /// <returns></returns>
         public Task<bool> AddSide(DiceSide side);
 
+        /// <summary>
+        /// Ajoute une face à la base de données
+        /// </summary>
+        /// <param name="side">la face</param>
+        /// <returns></returns>
+        //public Task<DiceSide> AddSideAndGet(DiceSide side);
+
 
         // ===================================================== //
         //      = COUNT =

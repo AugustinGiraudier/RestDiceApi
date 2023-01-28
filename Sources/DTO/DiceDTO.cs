@@ -4,6 +4,6 @@
     {
         public long ID { get; set; }
 
-        public DiceSideTypeDTO[] SideTypes { get; set; }
+        public DiceSideTypeDTO[] SideTypes { get; set; } = new DiceSideTypeDTO[0];
     }
 }
