@@ -23,6 +23,7 @@
     <ProjectReference Include="..\DTO\DTO.csproj" />
     <ProjectReference Include="..\EntitiesLib\EntitiesLib.csproj" />
     <ProjectReference Include="..\EntitiesToModel\EntitiesToModel.csproj" />
+    <ProjectReference Include="..\StubEntitiesLib\StubEntitiesLib.csproj" />
     <ProjectReference Include="..\StubLib\StubLib.csproj" />
   </ItemGroup>
 
