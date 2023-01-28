@@ -1,4 +1,5 @@
 using EntitiesLib;
+using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.EntityFrameworkCore;
 using ModelAppLib;
 
@@ -11,6 +12,8 @@ builder.Services.AddDbContext<DiceLauncherDbContext>(opt => opt.UseInMemoryDatab
 builder.Services.AddSingleton<IDataManager, DataBaseLinker>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddApiVersioning(o => o.ApiVersionReader = new UrlSegmentApiVersionReader());
+
 
 var app = builder.Build();
 
