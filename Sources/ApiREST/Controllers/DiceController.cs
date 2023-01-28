@@ -20,7 +20,7 @@ namespace ApiREST.Controllers
             _service = service;
         }
 
-        // GET: api/dices
+        // GET: api/v1/dices
         [HttpGet]
         public async Task<ActionResult<IEnumerable<DiceDTO>>> Get()
         {
@@ -44,7 +44,7 @@ namespace ApiREST.Controllers
             }
         }
 
-        // GET api/dices/5
+        // GET api/v1/dices/5
         [HttpGet("{id}")]
         public async Task<ActionResult<DiceDTO>> Get(int id)
         {
@@ -67,30 +67,30 @@ namespace ApiREST.Controllers
             }
         }
 
-        /*
+        
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<Dice>> Create(Dice dice) // Prendre pas un DIce mais un DTO
+        public async Task<ActionResult<DiceDTO>> Create(DiceDTO dice) // Prendre pas un DIce mais un DTO
         {
             try
             {
-                var createDice = await _service.AddDice(dice);
+                var createDice = await _service.AddDice(dice.ToModel());
                 if( !createDice)
                 {
                     return BadRequest();
                 }
 
                 // CreatedAtAction va retourne l'objet créé, et sur lequelle on va ensuite le convertire avec le DTO pour ensuite le return
-                return CreatedAtAction(nameof(GetAllDices),
-                    new { id = createDice.id }, createDice);
+                return CreatedAtAction(nameof(Get),
+                    new { id = dice.ID }, dice);
             }
             catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
                     "Error retrieving data from the database");
             }
-        }*/
+        }
         
 
         // POST api/values
@@ -105,10 +105,35 @@ namespace ApiREST.Controllers
         {
         }
 
-        // DELETE api/values/5
+        // DELETE api/v1/values/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<ActionResult<DiceDTO>> Delete(int id)
         {
+            try
+            {
+                if (id == null)
+                {
+                    return BadRequest();
+                }
+                var diceToDelete = await _service.GetDiceWithId(id);
+
+                if (diceToDelete == null)
+                {
+                    return NotFound($"Dice with the id = {id} was not found");
+                }
+
+                var resultDelete = await _service.DeleteDice(diceToDelete);
+                if (resultDelete.Equals(false) )
+                {
+                    return NotFound("The delete was not correct ");
+                }
+                return diceToDelete.ToDTO();
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error deleting data");
+            }
         }
     }
 }
