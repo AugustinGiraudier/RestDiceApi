@@ -26,14 +26,14 @@ namespace ModelAppLib
         /// </summary>
         /// <param name="id">id du dé</param>
         /// <returns></returns>
-        public Task<Dice> GetDiceWithId(int id);
+        public Task<Dice> GetDiceWithId(long id);
 
         /// <summary>
         /// Permet de recuperer une face avec son id
         /// </summary>
         /// <param name="id">id de la face</param>
         /// <returns></returns>
-        Task<DiceSide> GetDiceSideWithId(int id);
+        Task<DiceSide> GetDiceSideWithId(long id);
 
         /// <summary>
         /// Permet de récupérer toutes les faces

@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+option csharp_namespace = "ApiGRPC";
+
+package side;
+
+// The greeting service definition.
+service Sides {
+  // Sends a greeting
+  rpc getSides (SideRequest) returns (SideReply);
+}
+
+// The request message containing the user's name.
+message SideRequest {
+  int64 id = 1;
+}
+
+message SideReply {
+  int64 id = 1;
+  string image = 2;
+}

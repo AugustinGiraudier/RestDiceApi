@@ -99,7 +99,7 @@ namespace EntitiesLib
                                 .ToModel()
                                 );
         }
-        public Task<Dice> GetDiceWithId(int id)
+        public Task<Dice> GetDiceWithId(long id)
         {
             try
             {
@@ -110,7 +110,7 @@ namespace EntitiesLib
                 throw new ArgumentException("Le dé n'existe pas dans la base...");
             }
         }
-        public Task<DiceSide> GetDiceSideWithId(int id)
+        public Task<DiceSide> GetDiceSideWithId(long id)
         {
             try
             {
