@@ -11,15 +11,19 @@ namespace StubEntitiesLib
     public class StubedDatabaseLinker : DataBaseLinker
     {
 
-        public StubedDatabaseLinker(DiceLauncherDbContext context)
+        private bool StubDices;
+
+        public StubedDatabaseLinker(DiceLauncherDbContext context, bool addDices = true)
             :base(context)
         {
+            StubDices = addDices;
             StubThisLinker();
         }
         
-        public StubedDatabaseLinker()
+        public StubedDatabaseLinker(bool addDices = true)
             :base()
         {
+            this.StubDices = addDices;
             StubThisLinker();
         }
 
@@ -33,7 +37,7 @@ namespace StubEntitiesLib
                     this.context.Sides.Add(side.ToEntity());
                 context.SaveChanges();
             }
-            if (!context.Dices.Any())
+            if (StubDices && !context.Dices.Any())
             {
                 var dices = stub.GetAllDices().Result;
                 foreach (var dice in dices)

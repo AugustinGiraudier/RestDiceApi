@@ -704,7 +704,7 @@ namespace Entities_UnitTests
 
             var context = new DiceLauncherDbContext(options);
             context.Database.EnsureCreated();
-            StubedDatabaseLinker linker = new StubedDatabaseLinker(context);
+            StubedDatabaseLinker linker = new StubedDatabaseLinker(context, false);
             return linker;
         }
 
