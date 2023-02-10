@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+option csharp_namespace = "ClientGRPC";
+
+package dice;
+
+import "Protos/side.proto";
+
+service Dices {
+  rpc getDices (DiceRequest) returns (DiceReply);
+}
+
+message DiceRequest {
+  int64 id = 1;
+}
+
+message SideType {
+	side.SideReply proto = 1;
+	int64 nbSides = 2;
+}
+
+message DiceReply {
+  int64 id = 1;
+  repeated SideType type = 2;
+}

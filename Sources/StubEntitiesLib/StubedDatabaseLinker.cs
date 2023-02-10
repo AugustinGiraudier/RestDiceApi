@@ -1,5 +1,6 @@
 ﻿using EntitiesLib;
 using StubLib;
+using System;
 using System.Linq;
 
 namespace StubEntitiesLib
@@ -24,14 +25,22 @@ namespace StubEntitiesLib
 
         private void StubThisLinker()
         {
-            if(!context.Sides.Any())
+            var stub = new Stub();
+            if (!context.Sides.Any())
             {
-                var stub = new Stub();
                 var sides = stub.GetAllSides().Result;
                 foreach (var side in sides)
                     this.context.Sides.Add(side.ToEntity());
                 context.SaveChanges();
             }
+            if (!context.Dices.Any())
+            {
+                var dices = stub.GetAllDices().Result;
+                foreach (var dice in dices)
+                    this.context.Dices.Add(dice.ToEntity(this.context));
+                context.SaveChanges();
+            }
+
         }
     }
 }

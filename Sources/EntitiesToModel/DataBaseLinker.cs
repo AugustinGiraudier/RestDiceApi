@@ -103,7 +103,12 @@ namespace EntitiesLib
         {
             try
             {
-                return Task.FromResult(context.Dices.First(d => d.Id == id).ToModel());
+                return Task.FromResult(
+                          context.Dices.Include(d => d.Sides)
+                                .ThenInclude(s => s.Prototype)
+                                .First(d => d.Id == id)
+                                .ToModel()
+                                );
             }
             catch (InvalidOperationException)
             {
