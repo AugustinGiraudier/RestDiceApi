@@ -127,14 +127,14 @@ namespace StubLib
 
         }
 
-        public Task<DiceSide> GetDiceSideWithId(int id)
+        public Task<DiceSide> GetDiceSideWithId(long id)
         {
             var ds = new DiceSide($"{id}.png");
             ds.Id = id;
             return Task.FromResult(ds);
         }
 
-        public Task<Dice> GetDiceWithId(int id)
+        public Task<Dice> GetDiceWithId(long id)
         {
             var dice = GetAllDices().Result.ToList()[0];
             dice.Id = id;

@@ -99,18 +99,23 @@ namespace EntitiesLib
                                 .ToModel()
                                 );
         }
-        public Task<Dice> GetDiceWithId(int id)
+        public Task<Dice> GetDiceWithId(long id)
         {
             try
             {
-                return Task.FromResult(context.Dices.First(d => d.Id == id).ToModel());
+                return Task.FromResult(
+                          context.Dices.Include(d => d.Sides)
+                                .ThenInclude(s => s.Prototype)
+                                .First(d => d.Id == id)
+                                .ToModel()
+                                );
             }
             catch (InvalidOperationException)
             {
                 throw new ArgumentException("Le dé n'existe pas dans la base...");
             }
         }
-        public Task<DiceSide> GetDiceSideWithId(int id)
+        public Task<DiceSide> GetDiceSideWithId(long id)
         {
             try
             {

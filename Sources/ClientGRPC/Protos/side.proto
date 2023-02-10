@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+option csharp_namespace = "ClientGRPC";
+
+package side;
+
+service Sides {
+  rpc getSides (SideRequest) returns (SideReply);
+}
+
+message SideRequest {
+  int64 id = 1;
+}
+
+message SideReply {
+  int64 id = 1;
+  string image = 2;
+}

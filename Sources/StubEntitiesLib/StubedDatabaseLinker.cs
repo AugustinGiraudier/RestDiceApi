@@ -1,5 +1,6 @@
 ﻿using EntitiesLib;
 using StubLib;
+using System;
 using System.Linq;
 
 namespace StubEntitiesLib
@@ -10,28 +11,40 @@ namespace StubEntitiesLib
     public class StubedDatabaseLinker : DataBaseLinker
     {
 
-        public StubedDatabaseLinker(DiceLauncherDbContext context)
+        private bool StubDices;
+
+        public StubedDatabaseLinker(DiceLauncherDbContext context, bool addDices = true)
             :base(context)
         {
+            StubDices = addDices;
             StubThisLinker();
         }
         
-        public StubedDatabaseLinker()
+        public StubedDatabaseLinker(bool addDices = true)
             :base()
         {
+            this.StubDices = addDices;
             StubThisLinker();
         }
 
         private void StubThisLinker()
         {
-            if(!context.Sides.Any())
+            var stub = new Stub();
+            if (!context.Sides.Any())
             {
-                var stub = new Stub();
                 var sides = stub.GetAllSides().Result;
                 foreach (var side in sides)
                     this.context.Sides.Add(side.ToEntity());
                 context.SaveChanges();
             }
+            if (StubDices && !context.Dices.Any())
+            {
+                var dices = stub.GetAllDices().Result;
+                foreach (var dice in dices)
+                    this.context.Dices.Add(dice.ToEntity(this.context));
+                context.SaveChanges();
+            }
+
         }
     }
 }

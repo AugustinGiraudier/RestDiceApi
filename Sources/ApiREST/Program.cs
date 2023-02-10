@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.EntityFrameworkCore;
 using ModelAppLib;
 using StubEntitiesLib;
-using StubLib;
 
 var builder = WebApplication.CreateBuilder(args);
 
