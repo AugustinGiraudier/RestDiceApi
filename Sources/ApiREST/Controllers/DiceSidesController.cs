@@ -12,9 +12,7 @@ namespace ApiREST.Controllers
     {
 
         private readonly IDataManager _service;
-
         private static ILogger<DiceSidesController> logger = LoggerFactory.Create(builder => builder.AddNLog()).CreateLogger<DiceSidesController>();
-
 
         public DiceSidesController(IDataManager service)
         {

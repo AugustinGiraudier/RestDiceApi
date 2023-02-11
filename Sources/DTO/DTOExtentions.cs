@@ -19,6 +19,19 @@ namespace DTO
             ds.Id = dto.ID;
             return ds;
         }
+        public static Dice ToModel(this InputDiceDTO dto, IDataManager manager)
+        {
+            DiceSideType[] dsts = new DiceSideType[dto.SideTypes.Count()];
+            int cpt = 0;
+            foreach(DiceSideTypeDTO dstdto in dto.SideTypes)
+            {
+                dsts[cpt] = dto.SideTypes[cpt].ToModel(manager);
+                cpt++;
+            }
+            var ds = new Dice(new SecureRandomizer(), dsts);
+            ds.Id = 0;
+            return ds;
+        }
 
         public static DiceSideType ToModel(this DiceSideTypeDTO dto, IDataManager manager)
         {
@@ -59,7 +72,7 @@ namespace DTO
         {
             var dto = new DiceSideTypeDTO();
             dto.nbPrototype = model.NbSide;
-            dto.prototypeId = model.Prototype.Id;
+            dto.prototypeId = (int)model.Prototype.Id;
             return dto;
         }
         public static DiceSideDTO ToDTO(this DiceSide model)

@@ -72,13 +72,14 @@ namespace ApiREST.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<DiceDTO>> Create(DiceDTO dice)
+        public async Task<ActionResult<DiceDTO>> Create([FromBody] InputDiceDTO dice)
         {
             try
             {
                 if (dice == null)
                     return BadRequest();
-                var createDice = await _service.AddDice(dice.ToModel(_service));
+                var model = dice.ToModel(_service);
+                var createDice = await _service.AddDice(model);
                 if( !createDice)
                 {
                     logger.LogError("Methode Post, impossible to add the Dice");
@@ -88,7 +89,7 @@ namespace ApiREST.Controllers
                 // CreatedAtAction va retourne l'objet créé, et sur lequelle on va ensuite le convertire avec le DTO pour ensuite le return
                 logger.LogTrace("Methode Post, the dice was added correctly");
                 return CreatedAtAction(nameof(Get),
-                    new { id = dice.ID }, dice);
+                    new { id = model.Id }, dice);
             }
             catch (Exception)
             {
