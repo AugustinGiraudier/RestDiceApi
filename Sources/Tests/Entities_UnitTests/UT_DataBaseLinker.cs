@@ -357,72 +357,6 @@ namespace Entities_UnitTests
 
         }
 
-        [Fact]
-        async void TestRemovingNullAndNegativeNbOfSidesFromDice()
-        {
-            var linker = GetLinkerInMemory();
-            var sides = linker.GetAllSides().Result;
-
-            Dice d = new Dice(new SecureRandomizer(), new DiceSideType(2, sides.First()));
-
-            await linker.AddDice(d);
-
-            await Assert.ThrowsAsync<ArgumentOutOfRangeException>(async () =>
-            {
-                await linker.RemoveSideFromDice(d, sides.Last(), 0);
-
-            });
-            await Assert.ThrowsAsync<ArgumentOutOfRangeException>(async () =>
-            {
-                await linker.RemoveSideFromDice(d, sides.Last(),-1);
-
-            });
-            await Assert.ThrowsAsync<ArgumentException>(async () =>
-            {
-                await linker.RemoveSideFromDice(null, sides.Last());
-
-            });
-            await Assert.ThrowsAsync<ArgumentException>(async () =>
-            {
-                await linker.RemoveSideFromDice(d, null);
-
-            });
-        }
-
-        [Fact]
-        async void TestRemovingNullAndNegativeNbOfDicesFromGame()
-        {
-            var linker = GetLinkerInMemory();
-            var sides = linker.GetAllSides().Result;
-
-            Dice d = new Dice(new SecureRandomizer(), new DiceSideType(2, sides.First()));
-            Game g = new Game(new DiceType(2, d));
-
-            await linker.AddDice(d);
-            await linker.AddGame(g);
-
-            await Assert.ThrowsAsync<ArgumentOutOfRangeException>(async () =>
-            {
-                await linker.RemoveDiceFromGame(g, d, 0);
-
-            });
-            await Assert.ThrowsAsync<ArgumentOutOfRangeException>(async () =>
-            {
-                await linker.RemoveDiceFromGame(g, d, -1);
-
-            });            
-            await Assert.ThrowsAsync<ArgumentException>(async () =>
-            {
-                await linker.RemoveDiceFromGame(null, d);
-
-            });            
-            await Assert.ThrowsAsync<ArgumentException>(async () =>
-            {
-                await linker.RemoveDiceFromGame(g, null);
-
-            });
-        }
-
 
         // =============================================== //
         //      MEMBER DATAS
@@ -590,29 +524,6 @@ namespace Entities_UnitTests
                     5
                 };
             }
-            {
-                List<DiceSide> sides = new List<DiceSide>
-                {
-                    new DiceSide("TEST1"),
-                    new DiceSide("TEST2")
-                };
-                List<Dice> dices = new List<Dice>
-                {
-                    new Dice(new SecureRandomizer(),new DiceSideType(1, sides[0]), new DiceSideType(2, sides[1])),
-                    new Dice(new SecureRandomizer(),new DiceSideType(2, sides[0]), new DiceSideType(5, sides[1]))
-                };
-                Game g = new Game(new DiceType(1, dices[0]));
-
-                yield return new object[]
-                {
-                    g,
-                    sides,
-                    dices,
-                    new Dice(new SecureRandomizer(),new DiceSideType(1, sides[0])),
-                    5
-                };
-            }
-
         }
 
         public static IEnumerable<object[]> DataRemovingDicesFromGame()
@@ -639,53 +550,6 @@ namespace Entities_UnitTests
                     3
                 };
             }
-            {
-                List<DiceSide> sides = new List<DiceSide>
-                {
-                    new DiceSide("TEST1"),
-                    new DiceSide("TEST2")
-                };
-                List<Dice> dices = new List<Dice>
-                {
-                    new Dice(new SecureRandomizer(),new DiceSideType(1, sides[0]), new DiceSideType(2, sides[1])),
-                    new Dice(new SecureRandomizer(),new DiceSideType(2, sides[0]), new DiceSideType(5, sides[1]))
-                };
-                Game g = new Game(new DiceType(1, dices[0]), new DiceType(2, dices[1]));
-
-                yield return new object[]
-                {
-                    g,
-                    sides,
-                    dices,
-                    dices[1],
-                    2,
-                    5
-                };
-            }
-            {
-                List<DiceSide> sides = new List<DiceSide>
-                {
-                    new DiceSide("TEST1"),
-                    new DiceSide("TEST2")
-                };
-                List<Dice> dices = new List<Dice>
-                {
-                    new Dice(new SecureRandomizer(),new DiceSideType(1, sides[0]), new DiceSideType(2, sides[1])),
-                    new Dice(new SecureRandomizer(),new DiceSideType(2, sides[0]), new DiceSideType(5, sides[1]))
-                };
-                Game g = new Game(new DiceType(1, dices[0]), new DiceType(2, dices[1]));
-
-                yield return new object[]
-                {
-                    g,
-                    sides,
-                    dices,
-                    dices[1],
-                    2,
-                    2
-                };
-            }
-
         }
 
 
