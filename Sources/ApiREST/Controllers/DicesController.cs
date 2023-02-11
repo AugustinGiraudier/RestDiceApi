@@ -100,7 +100,7 @@ namespace ApiREST.Controllers
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public async void Put(int id, DiceDTO dice)
+        public async void Put(int id, [FromBody] InputDiceDTO dice)
         {
             try
             {
