@@ -19,11 +19,18 @@ Console.WriteLine("\n============== SIDES ==============\n");
     Console.WriteLine("added new side : ");
     Console.WriteLine(reply);
 }
-// get id=2 :
+// get id=8 :
 {
-    var reply = await sidesClient.getSideAsync(new SideRequest { Id = 2 });
+    var reply = await sidesClient.getSideAsync(new SideRequest { Id = 8 });
     Console.WriteLine("--------------------");
-    Console.WriteLine("get Side n2 : ");
+    Console.WriteLine("get Side n8 : ");
+    Console.WriteLine(reply);
+}
+// update id=8 :
+{
+    var reply = await sidesClient.updateSideAsync(new UpdateSideRequest { Id = 8, Image = "EncoreUneImage.png"});
+    Console.WriteLine("--------------------");
+    Console.WriteLine("update Side n8 : ");
     Console.WriteLine(reply);
 }
 // delete id=2 :
