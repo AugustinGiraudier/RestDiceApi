@@ -76,9 +76,19 @@ namespace ApiGRPC.Services
         }
 
         // PUT
-        //public async override Task<SideReply> updateSide(InputSideRequest request, ServerCallContext context)
-        //{
-            
-        //}
+        public async override Task<SideReply> updateSide(UpdateSideRequest request, ServerCallContext context)
+        {
+            _logger.LogTrace("update side");
+            var ds = new DiceSide(request.Image);
+            ds.Id = request.Id;
+            var addedDice = await _manager.UpdateSide(ds);
+            if (!addedDice)
+            {
+                _logger.LogError("Unable to update new Side");
+                throw new RpcException(new Status(StatusCode.NotFound, "Unable to add Side..."));
+            }
+            _logger.LogTrace("add side success");
+            return ds.ToReply();
+        }
     }
 }

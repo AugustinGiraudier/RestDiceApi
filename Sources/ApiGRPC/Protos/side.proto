@@ -15,7 +15,7 @@ service Sides {
 	// POST
 	rpc addSide(InputSideRequest) returns (SideReply);
 	// PUT
-	rpc updateSide(InputSideRequest) returns (SideReply);
+	rpc updateSide(UpdateSideRequest) returns (SideReply);
 }
 
 message Empty {}
@@ -25,6 +25,11 @@ message SideRequest {
 }
 
 message InputSideRequest {
+	string image = 1;
+}
+
+message UpdateSideRequest{
+	int64 id = 1;
 	string image = 2;
 }
 

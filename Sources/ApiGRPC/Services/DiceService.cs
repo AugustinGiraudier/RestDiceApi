@@ -80,5 +80,29 @@ namespace ApiGRPC.Services
             _logger.LogTrace("add dice success");
             return d.ToReply();
         }
+
+        // PUT
+        public async override Task<DiceReply> updateDice(UpdateDiceRequest request, ServerCallContext context)
+        {
+            _logger.LogTrace("update dice");
+            DiceSideType[] dst = new DiceSideType[request.Update.Types_.Count];
+            for (int i = 0; i < request.Update.Types_.Count; i++)
+            {
+                var diceEntity = await _manager.GetDiceSideWithId(request.Update.Types_[i].ProtoId);
+                if (diceEntity == null)
+                    throw new RpcException(new Status(StatusCode.NotFound, $"Unable to find side for id={request.Update.Types_[i].ProtoId}..."));
+                dst[i] = new DiceSideType((int)request.Update.Types_[i].NbSides, diceEntity);
+            }
+            var d = new Dice(_randomizer, dst);
+            d.Id = request.Id;
+            var addedDice = await _manager.UpdateDice(d);
+            if (!addedDice)
+            {
+                _logger.LogError("Unable to update new Dice");
+                throw new RpcException(new Status(StatusCode.NotFound, "Unable to add Dice..."));
+            }
+            _logger.LogTrace("update dice success");
+            return d.ToReply();
+        }
     }
 }
