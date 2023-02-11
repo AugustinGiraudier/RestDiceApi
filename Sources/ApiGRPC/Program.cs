@@ -13,6 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddGrpc();
 builder.Services.AddDbContext<DiceLauncherDbContext>(opt => opt.UseInMemoryDatabase("dbDice"));
 builder.Services.AddScoped<IDataManager, StubedDatabaseLinker>();
+builder.Services.AddScoped<IRandomizer, SecureRandomizer>();
 
 var app = builder.Build();
 
