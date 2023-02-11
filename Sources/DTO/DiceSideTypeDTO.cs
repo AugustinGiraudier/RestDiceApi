@@ -8,11 +8,7 @@ namespace DTO
 {
     public class DiceSideTypeDTO
     {
-        public long ID { get; set; }
-
-        public DiceSideDTO prototype { get; set; }
-
+        public int prototypeId { get; set; }
         public int nbPrototype { get; set; }
-
     }
 }

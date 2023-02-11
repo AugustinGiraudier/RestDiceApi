@@ -6,25 +6,39 @@ namespace DTO
     {
 
         // ----------- TO MODEL ----------- //
-        public static Dice ToModel(this DiceDTO dto)
+        public static Dice ToModel(this DiceDTO dto, IDataManager manager)
         {
             DiceSideType[] dsts = new DiceSideType[dto.SideTypes.Count()];
             int cpt = 0;
             foreach(DiceSideTypeDTO dstdto in dto.SideTypes)
             {
-                dsts[cpt] = dto.SideTypes[cpt].ToModel();
+                dsts[cpt] = dto.SideTypes[cpt].ToModel(manager);
                 cpt++;
             }
             var ds = new Dice(new SecureRandomizer(), dsts);
             ds.Id = dto.ID;
             return ds;
         }
-
-        public static DiceSideType ToModel(this DiceSideTypeDTO dto)
+        public static Dice ToModel(this InputDiceDTO dto, IDataManager manager)
         {
-            var dst = new DiceSideType(dto.nbPrototype, dto.prototype.ToModel());
+            DiceSideType[] dsts = new DiceSideType[dto.SideTypes.Count()];
+            int cpt = 0;
+            foreach(DiceSideTypeDTO dstdto in dto.SideTypes)
+            {
+                dsts[cpt] = dto.SideTypes[cpt].ToModel(manager);
+                cpt++;
+            }
+            var ds = new Dice(new SecureRandomizer(), dsts);
+            ds.Id = 0;
+            return ds;
+        }
+
+        public static DiceSideType ToModel(this DiceSideTypeDTO dto, IDataManager manager)
+        {
+            var dst = new DiceSideType(dto.nbPrototype, manager.GetDiceSideWithId(dto.prototypeId).Result);
             return dst;
         }
+
         public static DiceSide ToModel(this DiceSideDTO dto)
         {
             var ds = new DiceSide(dto.image);
@@ -58,7 +72,7 @@ namespace DTO
         {
             var dto = new DiceSideTypeDTO();
             dto.nbPrototype = model.NbSide;
-            dto.prototype = model.Prototype.ToDTO();
+            dto.prototypeId = (int)model.Prototype.Id;
             return dto;
         }
         public static DiceSideDTO ToDTO(this DiceSide model)

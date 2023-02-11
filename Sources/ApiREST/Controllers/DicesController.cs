@@ -13,33 +13,32 @@ namespace ApiREST.Controllers
     {
 
         private readonly IDataManager _service;
-
-        private static ILogger<DicesController> logger = LoggerFactory.Create(builder => builder.AddNLog()).CreateLogger<DicesController>();
-
-        public DicesController(IDataManager service)
+        private readonly ILogger<DicesController> _logger;
+        public DicesController(IDataManager service, ILogger<DicesController> logger)
         {
             _service = service;
+            _logger = logger;
         }
 
         // GET: api/v1/dices
         [HttpGet]
         public async Task<ActionResult<IEnumerable<DiceDTO>>> Get()
         {
-            logger.LogTrace("Method GET from DiceControler to get list of DiceDTO");
+            _logger.LogTrace("Method GET from DiceControler to get list of DiceDTO");
             try
             {
                 var result = await _service.GetAllDices();
                 if (result == null)
                 {
-                    logger.LogTrace("Method GET from DiceControler, not found list of DiceDTO");
+                    _logger.LogTrace("Method GET from DiceControler, not found list of DiceDTO");
                     return NotFound();
                 }
-                logger.LogTrace("Method GET from DiceControler return something");
+                _logger.LogTrace("Method GET from DiceControler return something");
                 return Ok(result.ToDTO());
             }
             catch (Exception)
             {
-                logger.LogTrace("Method GET from DiceControler, return Exception");
+                _logger.LogTrace("Method GET from DiceControler, return Exception");
                 return StatusCode(StatusCodes.Status500InternalServerError,
                     "Error retrieving data from the database");
             }
@@ -49,20 +48,20 @@ namespace ApiREST.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<DiceDTO>> Get(int id)
         {
-            logger.LogTrace("GET Dice with Id");
+            _logger.LogTrace("GET Dice with Id");
             try
             {
                 var result = await _service.GetDiceWithId(id);
                 if( result == null)
                 {
-                    logger.LogTrace("Method GET by ID from DiceControler, not found the Dice with the Id");
+                    _logger.LogTrace("Method GET by ID from DiceControler, not found the Dice with the Id");
                     return NotFound();
                 }
-                logger.LogTrace("Method GET by ID from DiceControler, return something");
+                _logger.LogTrace("Method GET by ID from DiceControler, return something");
                 return Ok(result.ToDTO());
             } catch(Exception)
             {
-                logger.LogTrace("Method GET by ID from DiceControler, return Exception");
+                _logger.LogTrace("Method GET by ID from DiceControler, return Exception");
                 return StatusCode(StatusCodes.Status500InternalServerError,
                     "Error retrieving data from the database");
             }
@@ -72,23 +71,24 @@ namespace ApiREST.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<DiceDTO>> Create(DiceDTO dice)
+        public async Task<ActionResult<DiceDTO>> Create([FromBody] InputDiceDTO dice)
         {
             try
             {
                 if (dice == null)
                     return BadRequest();
-                var createDice = await _service.AddDice(dice.ToModel());
+                var model = dice.ToModel(_service);
+                var createDice = await _service.AddDice(model);
                 if( !createDice)
                 {
-                    logger.LogError("Methode Post, impossible to add the Dice");
+                    _logger.LogError("Methode Post, impossible to add the Dice");
                     return BadRequest();
                 }
 
                 // CreatedAtAction va retourne l'objet créé, et sur lequelle on va ensuite le convertire avec le DTO pour ensuite le return
-                logger.LogTrace("Methode Post, the dice was added correctly");
+                _logger.LogTrace("Methode Post, the dice was added correctly");
                 return CreatedAtAction(nameof(Get),
-                    new { id = dice.ID }, dice);
+                    new { id = model.Id }, dice);
             }
             catch (Exception)
             {
@@ -99,18 +99,16 @@ namespace ApiREST.Controllers
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public async void Put(int id, DiceDTO dice)
+        public async void Put(int id, [FromBody] InputDiceDTO dice)
         {
             try
             {
-                if (id == null)
+                var res = await _service.UpdateDice(dice.ToModel(_service));
+                if (!res)
                 {
-                    logger.LogError("Methode Put, the id was null");
+                    _logger.LogError("Methode Put, unable to find Dice");
                     BadRequest();
                 }
-                
-                await _service.UpdateDice(dice.ToModel());
-                
             }
             catch (Exception e)
             {
@@ -127,25 +125,25 @@ namespace ApiREST.Controllers
             {
                 if (id == null)
                 {
-                    logger.LogError("Methode Delete, the id was null");
+                    _logger.LogError("Methode Delete, the id was null");
                     return BadRequest();
                 }
                 var diceToDelete = await _service.GetDiceWithId(id);
 
                 if (diceToDelete == null)
                 {
-                    logger.LogError("Methode Delete, impossible to find the Dice to delete");
+                    _logger.LogError("Methode Delete, impossible to find the Dice to delete");
                     return NotFound($"Dice with the id = {id} was not found");
                 }
 
                 var resultDelete = await _service.DeleteDice(diceToDelete);
-                logger.LogTrace("Methode Delete, the Dice was Deleted");
+                _logger.LogTrace("Methode Delete, the Dice was Deleted");
                 if (resultDelete.Equals(false) )
                 {
-                    logger.LogError("Methode Delete, the deleting was not successfull");
+                    _logger.LogError("Methode Delete, the deleting was not successfull");
                     return NotFound("The delete was not correct ");
                 }
-                logger.LogTrace("Methode Delete, returned the DTO of the deleted Dice");
+                _logger.LogTrace("Methode Delete, returned the DTO of the deleted Dice");
                 return diceToDelete.ToDTO();
             }
             catch (Exception e)

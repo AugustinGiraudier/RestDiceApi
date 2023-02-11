@@ -204,7 +204,11 @@ namespace EntitiesLib
             {
                 return false;
             }
-            result = d.ToEntity(context);
+            result.Sides.Clear();
+            foreach(var s in d.ToEntity(context).Sides)
+            {
+                result.Sides.Add(s);
+            }
             await context.SaveChangesAsync();
             return true;
         }
