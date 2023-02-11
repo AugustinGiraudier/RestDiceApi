@@ -1,12 +1,32 @@
-# Projet API REST Dice Launcher
+# Projet Dice Launcher
 
-Grille notation : 
-https://github.com/nicolas63/coursservicesmobiles/blob/master/Notation.md
+## Presentation Api
 
-Doc API Microsoft : 
-https://learn.microsoft.com/fr-fr/aspnet/core/web-api/?view=aspnetcore-6.0
+Afin de connaitre nos choix quant aux différents types d'api ou comprendre leur structure, rendez vous dans l'onglet [Wiki](https://codefirst.iut.uca.fr/git/augustin.giraudier/ServicesMobile/wiki)
 
-## Présentation
+### Travail réalisé
+
+Voici les différents projets qui ont été réalisés :
+- API REST pour les faces et les dés (GET,POST,PUT,DELETE)
+- API GRPC pour les faces et les dés (GET,POST,PUT,DELETE)
+- API Gateway pour rediriger vers l'API REST
+- Client Console GRPC de test
+- Collection Postman pour tester l'API Gateway
+
+### Comment tester L'API REST via l'API Gateway
+  
+Afin de tester de façon la plus simple possible, munissez vous de Visual Studio et lancez dans l'ordre le Projet `MicroServices/ApiREST` puis `ApiGateway/ApiGateway`.
+
+Ensuite, lancez le logiciel Postman disponible [ici](https://www.postman.com/downloads/).  
+Enfin, importez la collection : `Collection postman/collection.json` depuis la racine du repository.  
+Vous pourrez alors tester les différentes fonctionnalités.
+
+### Comment tester L'API GRPC
+
+Afin de tester l'API GRPC, lancez, grace à Visual Studio, le projet `MicroServices/ApiGRPC` puis executez le projet `Clients/ClientGRPC`.  
+Vous pourrez alors voir les resultats des différents requetes de test.
+
+## Présentation Globale du projet
 
 ### Objectif
 
@@ -64,7 +84,3 @@ Vous pouvez également visionner le contenu de la base de donnée
 \Sources\Application\DiceLauncher.db
 ```
 à l'aide du logiciel DbBrowser for SQLite disponible [ici](https://sqlitebrowser.org/)
-
-## Documentation
-
-Notre documentation est consultable [ici](https://codefirst.iut.uca.fr/documentation/augustin.giraudier/doxygen/DiceLauncher/html/index.html)
