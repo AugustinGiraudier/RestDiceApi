@@ -17,6 +17,7 @@ service Dices {
 	// POST
 	rpc addDice(InputDiceRequest) returns (DiceReply);
 	// PUT
+	rpc updateDice(UpdateDiceRequest) returns (DiceReply);
 
 }
 
@@ -45,4 +46,9 @@ message DicesReply {
 
 message InputDiceRequest {
 	repeated InputSideType types = 1;
+}
+
+message UpdateDiceRequest {
+	int64 id = 1;
+	InputDiceRequest update = 2;
 }

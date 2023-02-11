@@ -33,9 +33,9 @@ Console.WriteLine("\n============== SIDES ==============\n");
     Console.WriteLine("update Side n8 : ");
     Console.WriteLine(reply);
 }
-// delete id=2 :
+// delete id=8 :
 {
-    var reply = await sidesClient.deleteSideAsync(new SideRequest { Id = 2 });
+    var reply = await sidesClient.deleteSideAsync(new SideRequest { Id = 8 });
     Console.WriteLine("--------------------");
     Console.WriteLine("deleted side n2 : ");
     Console.WriteLine(reply);
@@ -52,13 +52,6 @@ Console.WriteLine("\n============== SIDES ==============\n");
 /// ------- DICES
 var DiceClient = new Dices.DicesClient(channel);
 Console.WriteLine("\n============== DICES ==============\n");
-// get  dice 1:
-{
-    var reply = await DiceClient.getDiceAsync(new DiceRequest { Id = 1 });
-    Console.WriteLine("--------------------");
-    Console.WriteLine("Dice n1 : ");
-    Console.WriteLine(reply);
-}
 // create dice :
 {
     var request = new InputDiceRequest();
@@ -68,11 +61,34 @@ Console.WriteLine("\n============== DICES ==============\n");
     Console.WriteLine("Add Dice : ");
     Console.WriteLine(reply);
 }
+// get dice 5:
+{
+    var reply = await DiceClient.getDiceAsync(new DiceRequest { Id = 5 });
+    Console.WriteLine("--------------------");
+    Console.WriteLine("Dice n5 : ");
+    Console.WriteLine(reply);
+}
+// update dice 5:
+{
+    var request = new InputDiceRequest();
+    request.Types_.Add(new InputSideType { NbSides = 4, ProtoId = 1 });
+    var reply = await DiceClient.updateDiceAsync(new UpdateDiceRequest { Id=5, Update=request });
+    Console.WriteLine("--------------------");
+    Console.WriteLine("update Dice n5 : ");
+    Console.WriteLine(reply);
+}
 // get all dices :
 {
     var reply = await DiceClient.getDicesAsync(new Empty { });
     Console.WriteLine("--------------------");
     Console.WriteLine("Dices : ");
+    Console.WriteLine(reply);
+}
+// delete
+{
+    var reply = await DiceClient.deleteDiceAsync(new DiceRequest { Id=5});
+    Console.WriteLine("--------------------");
+    Console.WriteLine("deleted Dice : ");
     Console.WriteLine(reply);
 }
 
