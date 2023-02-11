@@ -206,5 +206,10 @@ namespace StubLib
         {
             return Task.FromResult(true);
         }
+
+        public Task<bool> UpdateDice(Dice d)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

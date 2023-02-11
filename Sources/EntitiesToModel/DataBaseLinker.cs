@@ -204,7 +204,7 @@ namespace EntitiesLib
             {
                 return false;
             }
-            result = d.ToEntity();
+            result = d.ToEntity(context);
             await context.SaveChangesAsync();
             return true;
         }
