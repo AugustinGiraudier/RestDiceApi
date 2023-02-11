@@ -26,6 +26,8 @@ Vous pourrez alors tester les différentes fonctionnalités.
 Afin de tester l'API GRPC, lancez, grace à Visual Studio, le projet `MicroServices/ApiGRPC` puis executez le projet `Clients/ClientGRPC`.  
 Vous pourrez alors voir les resultats des différents requetes de test.
 
+> ``📝`` Notez que la base de donnée utilisée est une bdd in Memory pré remplie à sa création pour faciliter les tests.
+
 ## Présentation Globale du projet
 
 ### Objectif
