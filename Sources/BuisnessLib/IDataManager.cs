@@ -170,6 +170,20 @@ namespace ModelAppLib
         public Task<bool> AddDiceToGame(Game g, Dice d, int nb = 1);
 
         /// <summary>
+        /// Modifie le dé passé en paramètre
+        /// </summary>
+        /// <param name="d"></param>
+        /// <returns></returns>
+        public Task<bool> UpdateDice(Dice d);
+
+        /// <summary>
+        /// Modifie un DiceSide
+        /// </summary>
+        /// <param name="ds"></param>
+        /// <returns></returns>
+        public Task<bool> UpdateSide(DiceSide ds);
+
+        /// <summary>
         /// Ajoute des faces à un dé
         /// </summary>
         /// <param name="d">dé</param>

@@ -22,6 +22,7 @@ namespace EntitiesLib
             ds.Id = entity.Id;
             return ds;
         }
+
         public static DiceSideEntity ToEntity(this DiceSide model)
                 => new DiceSideEntity { Image = model.Image, Id = model.Id };
 
