@@ -78,7 +78,7 @@ namespace ApiREST.Controllers
             {
                 if (dice == null)
                     return BadRequest();
-                var createDice = await _service.AddDice(dice.ToModel());
+                var createDice = await _service.AddDice(dice.ToModel(_service));
                 if( !createDice)
                 {
                     logger.LogError("Methode Post, impossible to add the Dice");
@@ -103,14 +103,12 @@ namespace ApiREST.Controllers
         {
             try
             {
-                if (id == null)
+                var res = await _service.UpdateDice(dice.ToModel(_service));
+                if (!res)
                 {
-                    logger.LogError("Methode Put, the id was null");
+                    logger.LogError("Methode Put, unable to find Dice");
                     BadRequest();
                 }
-                
-                await _service.UpdateDice(dice.ToModel());
-                
             }
             catch (Exception e)
             {

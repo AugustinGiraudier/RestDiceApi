@@ -80,16 +80,15 @@ namespace ApiREST.Controllers
                     return BadRequest();
                 DiceSideDTO final = new DiceSideDTO();
                 final.image = diceSide.image;
-                var createDiceSide = await _service.AddSide(final.ToModel());
+                var model = final.ToModel();
+                var createDiceSide = await _service.AddSide(model);
                 if (!createDiceSide)
                 {
                     logger.LogError("Methode Post, impossible to add the DiceSide");
                     return BadRequest();
                 }
-
-                // CreatedAtAction va retourne l'objet créé, et sur lequelle on va ensuite le convertire avec le DTO pour ensuite le return
+                final.ID = model.Id;
                 logger.LogTrace("Methode Post, the diceSide was added correctly");
-                
                 return final;
             }
             catch (Exception)
