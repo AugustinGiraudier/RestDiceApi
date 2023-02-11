@@ -7,11 +7,21 @@ package dice;
 import "Protos/side.proto";
 
 service Dices {
-  rpc getDices (DiceRequest) returns (DiceReply);
+
+	// GET ALL
+	rpc getDices(side.Empty) returns (DicesReply);
+	// GET
+	rpc getDice (DiceRequest) returns (DiceReply);
+	// DELETE
+	rpc deleteDice(DiceRequest) returns (DiceReply);
+	// POST
+	rpc addDice(InputDiceRequest) returns (DiceReply);
+	// PUT
+
 }
 
 message DiceRequest {
-  int64 id = 1;
+	int64 id = 1;
 }
 
 message SideType {
@@ -19,7 +29,20 @@ message SideType {
 	int64 nbSides = 2;
 }
 
+message InputSideType {
+	int64 protoId = 1;
+	int64 nbSides = 2;
+}
+
 message DiceReply {
-  int64 id = 1;
-  repeated SideType type = 2;
+	int64 id = 1;
+	repeated SideType type = 2;
+}
+
+message DicesReply {
+	repeated DiceReply dices = 1;
+}
+
+message InputDiceRequest {
+	repeated InputSideType types = 1;
 }

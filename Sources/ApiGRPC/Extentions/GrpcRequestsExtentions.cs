@@ -40,6 +40,15 @@ namespace ApiGRPC.Extentions
             }
             return rp;
         }
+        public static DicesReply ToReply(this IEnumerable<Dice> model)
+        {
+            var rp = new DicesReply();
+            foreach (var dice in model)
+            {
+                rp.Dices.Add(dice.ToReply());
+            }
+            return rp;
+        }
 
     }
 }

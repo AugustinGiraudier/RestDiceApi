@@ -6,10 +6,15 @@ package side;
 
 service Sides {
 	
+	// GET ALL
 	rpc getSides(Empty) returns (SidesReply);
+	// GET
 	rpc getSide (SideRequest) returns (SideReply);
+	// DELETE
 	rpc deleteSide(SideRequest) returns (SideReply);
+	// POST
 	rpc addSide(InputSideRequest) returns (SideReply);
+	// PUT
 	rpc updateSide(InputSideRequest) returns (SideReply);
 }
 

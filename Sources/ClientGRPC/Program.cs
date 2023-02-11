@@ -1,6 +1,5 @@
 ﻿using ClientGRPC;
 using Grpc.Net.Client;
-using System.Diagnostics;
 
 // The port number must match the port of the gRPC server.
 
@@ -46,14 +45,34 @@ Console.WriteLine("\n============== SIDES ==============\n");
 /// ------- DICES
 var DiceClient = new Dices.DicesClient(channel);
 Console.WriteLine("\n============== DICES ==============\n");
-
-// get  dice :
+// get  dice 1:
 {
-    var reply2 = await DiceClient.getDicesAsync(new DiceRequest { Id = 1 });
+    var reply = await DiceClient.getDiceAsync(new DiceRequest { Id = 1 });
     Console.WriteLine("--------------------");
     Console.WriteLine("Dice n1 : ");
-    Console.WriteLine(reply2);
+    Console.WriteLine(reply);
 }
+// create dice :
+{
+    var request = new InputDiceRequest();
+    request.Types_.Add(new InputSideType { NbSides = 1, ProtoId = 1});
+    var reply = await DiceClient.addDiceAsync(request);
+    Console.WriteLine("--------------------");
+    Console.WriteLine("Add Dice : ");
+    Console.WriteLine(reply);
+}
+// get all dices :
+{
+    var reply = await DiceClient.getDicesAsync(new Empty { });
+    Console.WriteLine("--------------------");
+    Console.WriteLine("Dices : ");
+    Console.WriteLine(reply);
+}
+
+
+
+
+
 
 Console.WriteLine("\nPress any key to exit...");
 Console.ReadKey();

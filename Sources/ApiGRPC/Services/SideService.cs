@@ -15,6 +15,7 @@ namespace ApiGRPC.Services
             _manager = manager;
         }
 
+        // GET ALL
         public async override Task<SidesReply> getSides(Empty request, ServerCallContext context)
         {
             _logger.LogTrace("get all sides");
@@ -28,6 +29,7 @@ namespace ApiGRPC.Services
             return rep.ToReply();
         }
 
+        // GET
         public async override Task<SideReply> getSide(SideRequest request, ServerCallContext context)
         {
             _logger.LogTrace($"get side with id={request.Id}");
@@ -41,6 +43,7 @@ namespace ApiGRPC.Services
             return rep.ToReply();
         }
 
+        // DELETE
         public override async Task<SideReply> deleteSide(SideRequest request, ServerCallContext context)
         {
             _logger.LogTrace($"delete side with id={request.Id}");
@@ -56,6 +59,8 @@ namespace ApiGRPC.Services
             _logger.LogTrace("delete side success");
             return diceSideToDelete.ToReply();
         }
+
+        // POST
         public async override Task<SideReply> addSide(InputSideRequest request, ServerCallContext context)
         {
             _logger.LogTrace("add side");
@@ -70,6 +75,7 @@ namespace ApiGRPC.Services
             return ds.ToReply();
         }
 
+        // PUT
         //public async override Task<SideReply> updateSide(InputSideRequest request, ServerCallContext context)
         //{
             
