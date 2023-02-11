@@ -3,10 +3,11 @@ using Grpc.Net.Client;
 
 // The port number must match the port of the gRPC server.
 
-// lauching with .exe :
-using var channel = GrpcChannel.ForAddress("https://localhost:5001");
-// debug with visual :
-//using var channel = GrpcChannel.ForAddress("https://localhost:7118");
+// if API is lauched with .exe :
+//using var channel = GrpcChannel.ForAddress("https://localhost:5001");
+
+// if it is with visual :
+using var channel = GrpcChannel.ForAddress("https://localhost:7118");
 
 
 /// ------- SIDES
