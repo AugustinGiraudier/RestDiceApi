@@ -19,6 +19,7 @@ namespace DTO
             ds.Id = dto.ID;
             return ds;
         }
+
         public static DiceSideType ToModel(this DiceSideTypeDTO dto)
         {
             var dst = new DiceSideType(dto.nbPrototype, dto.prototype.ToModel());
@@ -28,6 +29,12 @@ namespace DTO
         {
             var ds = new DiceSide(dto.image);
             ds.Id = dto.ID;
+            return ds;
+        }
+        public static DiceSide ToModel(this InputDiceSideDTO dto)
+        {
+            var ds = new DiceSide(dto.image);
+            ds.Id = 1;
             return ds;
         }
 

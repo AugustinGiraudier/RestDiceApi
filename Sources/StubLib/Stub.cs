@@ -211,5 +211,10 @@ namespace StubLib
         {
             throw new System.NotImplementedException();
         }
+
+        public Task<bool> UpdateSide(DiceSide ds)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

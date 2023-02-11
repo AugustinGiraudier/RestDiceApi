@@ -99,8 +99,27 @@ namespace ApiREST.Controllers
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<ActionResult<DiceSideDTO>> Put(int id, [FromBody]InputDiceSideDTO diceSide)
         {
+            try
+            {
+                if (id == null)
+                {
+                    logger.LogError("Methode Put, the id was null");
+                    return BadRequest();
+                }
+                DiceSideDTO final = new DiceSideDTO();
+                final.ID = id;
+                final.image = diceSide.image;
+                await _service.UpdateSide(final.ToModel());
+                return CreatedAtAction(nameof(Get),
+                    new { id = final.ID }, final); ;
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error updating data");
+            }
         }
 
 

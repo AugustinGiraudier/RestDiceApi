@@ -177,6 +177,13 @@ namespace ModelAppLib
         public Task<bool> UpdateDice(Dice d);
 
         /// <summary>
+        /// Modifie un DiceSide
+        /// </summary>
+        /// <param name="ds"></param>
+        /// <returns></returns>
+        public Task<bool> UpdateSide(DiceSide ds);
+
+        /// <summary>
         /// Ajoute des faces à un dé
         /// </summary>
         /// <param name="d">dé</param>

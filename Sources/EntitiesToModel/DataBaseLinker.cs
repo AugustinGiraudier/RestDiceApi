@@ -209,6 +209,23 @@ namespace EntitiesLib
             return true;
         }
 
+        public async Task<bool> UpdateSide(DiceSide ds)
+        {
+            if (ds == null)
+            {
+                return false;
+            }
+
+            DiceSideEntity result = GetSideEntity(ds);
+            if (result == null)
+            {
+                return false;
+            }
+            result.Image = ds.Image;
+            await context.SaveChangesAsync();
+            return true;
+        }
+
         public async Task<bool> AddDiceToGame(Game g, Dice d, int nb = 1)
         {
             CheckNumberIsPositive(nb);
