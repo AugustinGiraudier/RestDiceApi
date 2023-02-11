@@ -186,12 +186,28 @@ namespace EntitiesLib
         {
             return Task.FromResult(context.Sides.Count());
         }
-        
+
 
         // ===================================================== //
         //      = UPDATE =
         // ===================================================== //
 
+        public async Task<bool> UpdateDice(Dice d)
+        {
+            if (d == null)
+            {
+                return false;
+            }
+
+            DiceEntity result = GetDiceEntity(d);
+            if (result == null)
+            {
+                return false;
+            }
+            result = d.ToEntity();
+            await context.SaveChangesAsync();
+            return true;
+        }
 
         public async Task<bool> AddDiceToGame(Game g, Dice d, int nb = 1)
         {
@@ -327,7 +343,9 @@ namespace EntitiesLib
         {
             try
             {
-                return context.Dices.First(d2 => d2.Id == d.Id);
+                return context.Dices.Include(d => d.Sides)
+                                .ThenInclude(s => s.Prototype)
+                                .First(d => d.Id == d.Id);
             }
             catch(InvalidOperationException)
             {

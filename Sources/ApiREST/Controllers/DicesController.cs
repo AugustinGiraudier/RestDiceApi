@@ -99,8 +99,24 @@ namespace ApiREST.Controllers
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public async void Put(int id, DiceDTO dice)
         {
+            try
+            {
+                if (id == null)
+                {
+                    logger.LogError("Methode Put, the id was null");
+                    BadRequest();
+                }
+                
+                await _service.UpdateDice(dice.ToModel());
+                
+            }
+            catch (Exception e)
+            {
+                StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error deleting data");
+            }
         }
 
         // DELETE api/v1/values/5
