@@ -5,14 +5,29 @@ option csharp_namespace = "ApiGRPC";
 package side;
 
 service Sides {
-  rpc getSides (SideRequest) returns (SideReply);
+	
+	rpc getSides(Empty) returns (SidesReply);
+	rpc getSide (SideRequest) returns (SideReply);
+	rpc deleteSide(SideRequest) returns (SideReply);
+	rpc addSide(InputSideRequest) returns (SideReply);
+	rpc updateSide(InputSideRequest) returns (SideReply);
 }
 
+message Empty {}
+
 message SideRequest {
-  int64 id = 1;
+	int64 id = 1;
+}
+
+message InputSideRequest {
+	string image = 2;
 }
 
 message SideReply {
-  int64 id = 1;
-  string image = 2;
+	int64 id = 1;
+	InputSideRequest side = 2;
+}
+
+message SidesReply {
+	repeated SideReply sides = 1;
 }
