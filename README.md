@@ -2,7 +2,7 @@
 
 ## Presentation Api
 
-Afin de connaitre nos choix quant aux différents types d'api ou comprendre leur structure, rendez vous dans l'onglet [Wiki](https://codefirst.iut.uca.fr/git/augustin.giraudier/ServicesMobile/wiki)
+Afin de connaitre nos choix quant aux différents types d'api ou comprendre leur structure, rendez vous dans l'onglet [Wiki](https://github.com/AugustinGiraudier/RestDiceApi/wiki)
 
 ### Travail réalisé
 
